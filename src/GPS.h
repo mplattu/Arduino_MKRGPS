@@ -54,6 +54,8 @@ public:
   void standby();
   void wakeup();
 
+  void setUpdateRate(uint16_t measRate, uint16_t navRate, uint16_t timeRef);
+
 private:
   void poll();
   void parseBuffer();
