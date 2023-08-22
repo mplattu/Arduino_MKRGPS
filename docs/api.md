@@ -44,6 +44,7 @@ if (!GPS.begin()) {
 * [getTime()](#gettime)
 * [standby()](#standby)
 * [wakeup()](#wakeup)
+* [setUpdateRate()](#setupdaterate)
 
 ### `end()`
 
@@ -91,6 +92,7 @@ GPS.end();
 * [getTime()](#gettime)
 * [standby()](#standby)
 * [wakeup()](#wakeup)
+* [setUpdateRate()](#setupdaterate)
 
 ### `available()`
 
@@ -140,6 +142,7 @@ if (GPS.available()) {
 * [getTime()](#gettime)
 * [standby()](#standby)
 * [wakeup()](#wakeup)
+* [setUpdateRate()](#setupdaterate)
 
 ### `latitude()`
 
@@ -192,6 +195,7 @@ if (GPS.available()) {
 * [getTime()](#gettime)
 * [standby()](#standby)
 * [wakeup()](#wakeup)
+* [setUpdateRate()](#setupdaterate)
 
 ### `longitude()`
 
@@ -244,6 +248,7 @@ if (GPS.available()) {
 * [getTime()](#gettime)
 * [standby()](#standby)
 * [wakeup()](#wakeup)
+* [setUpdateRate()](#setupdaterate)
 
 ### `speed()`
 
@@ -294,6 +299,7 @@ if (GPS.available()) {
 * [getTime()](#gettime)
 * [standby()](#standby)
 * [wakeup()](#wakeup)
+* [setUpdateRate()](#setupdaterate)
 
 ### `course()`
 
@@ -344,6 +350,7 @@ if (GPS.available()) {
 * [getTime()](#gettime)
 * [standby()](#standby)
 * [wakeup()](#wakeup)
+* [setUpdateRate()](#setupdaterate)
 
 ### `variation()`
 
@@ -394,6 +401,7 @@ if (GPS.available()) {
 * [getTime()](#gettime)
 * [standby()](#standby)
 * [wakeup()](#wakeup)
+* [setUpdateRate()](#setupdaterate)
 
 ### `altitude()`
 
@@ -444,6 +452,7 @@ if (GPS.available()) {
 * [getTime()](#gettime)
 * [standby()](#standby)
 * [wakeup()](#wakeup)
+* [setUpdateRate()](#setupdaterate)
 
 ### `satellites()`
 
@@ -493,6 +502,7 @@ if (GPS.available()) {
 * [getTime()](#gettime)
 * [standby()](#standby)
 * [wakeup()](#wakeup)
+* [setUpdateRate()](#setupdaterate)
 
 ### `satellites()`
 
@@ -542,6 +552,7 @@ if (GPS.available()) {
 * [getTime()](#gettime)
 * [standby()](#standby)
 * [wakeup()](#wakeup)
+* [setUpdateRate()](#setupdaterate)
 
 ### `getTime()`
 
@@ -591,6 +602,7 @@ if (GPS.available()) {
 * [satellites()](#satellites)
 * [standby()](#standby)
 * [wakeup()](#wakeup)
+* [setUpdateRate()](#setupdaterate)
 
 ### `standby()`
 
@@ -645,6 +657,7 @@ while (!GPS.available());
 * [satellites()](#satellites)
 * [getTime()](#gettime)
 * [wakeup()](#wakeup)
+* [setUpdateRate()](#setupdaterate)
 
 ### `wakeup()`
 
@@ -699,3 +712,59 @@ while (!GPS.available());
 * [satellites()](#satellites)
 * [getTime()](#gettime)
 * [standby()](#standby)
+* [setUpdateRate()](#setupdaterate)
+
+### `setUpdateRate()`
+
+Sends new update rates to GPS module.
+
+#### Syntax 
+
+```
+GPS.setUpdateRate(measRate, navRate, timeRef)
+```
+
+#### Parameters
+
+* `uint16_t measRate` - The elapsed time between GNSS
+measurements, which defines the rate, e.
+g. 100 ms => 10 Hz, 1000 ms => 1 Hz,
+10000 ms => 0.1 Hz. Measurement rate
+should be greater than or equal to 25 ms. Unit: ms.
+* `uint16_t navRate` - The ratio between the number of
+measurements and the number of
+navigation solutions, e.g. 5 means five
+measurements for every navigation
+solution. Maximum value is 127. Unit: cycles.
+* `uint16_t timeRef` - The time system to which measurements
+are aligned: (0: UTC time, 1: GPS time). Unit: -.
+
+For more information about the parameters see u-blox documentation UBX-13003221, 32.10.27.1 Navigation/measurement rate settings.
+
+#### Returns
+
+None.
+
+#### Example
+
+```
+// Set update frequency to 10 Hz
+GPS.setUpdateRate(100, 1, 1);
+```
+
+#### See also
+
+* [begin()](#begin)
+* [end()](#end)
+* [available()](#available)
+* [latitude()](#latitude)
+* [longitude()](#longitude)
+* [speed()](#speed)
+* [course()](#course)
+* [variation()](#variation)
+* [altitude()](#altitude)
+* [satellites()](#satellites)
+* [getTime()](#gettime)
+* [standby()](#standby)
+* [setUpdateRate()](#setupdaterate)
+

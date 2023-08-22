@@ -190,6 +190,25 @@ void GPSClass::wakeup()
   _index = 0;
 }
 
+void GPSClass::setUpdateRate(uint16_t measRate, uint16_t navRate, uint16_t timeRef)
+{
+  //  UBX-CFG-RATE (0x06 0x08) Navigation/Measurement Rate Settings
+  //  See UBX-13003221 section 32.10.23.1
+  byte payload[6];
+
+  memset(payload, 0x00, sizeof(payload));
+
+  // write out the unsigned shorts in little-endian form
+  payload[0] = measRate & 0xff;   
+  payload[1] = (measRate >> 8) & 0xff;   
+  payload[2] = navRate & 0xff;
+  payload[3] = (navRate >> 8) & 0xff;
+  payload[4] = timeRef & 0xff;
+  payload[5] = (timeRef >>8) && 0xff;
+
+  sendUbx(0x06, 0x08, payload, sizeof(payload));
+}
+
 void GPSClass::poll()
 {
   if (_stream->available()) {
@@ -296,4 +315,4 @@ float GPSClass::toDegrees(float f)
 }
 
 static SerialDDC serialDDC(Wire, 0x42, 0xfd, 0xff);
-GPSClass GPS(Serial1, 9600, serialDDC, 400000, 7);
+GPSClass GPS(Serial1, 460800, serialDDC, 400000, 7);
